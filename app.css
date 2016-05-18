@@ -1,0 +1,50 @@
+html, body {
+  margin: 0px;
+  padding: 0px;
+}
+#my_frame {
+  position: relative;
+  overflow: hidden;
+  width: 400px;
+  height: 400px;
+}
+#my_content {
+  position: absolute;
+  width: 1200px;
+  height: 400px;
+}
+.my_content__button {
+  position: absolute;
+  z-index: 1;
+  transform: translateY(-50%);
+  top: 50%;
+  border-top: 32px solid transparent;
+  border-bottom: 32px solid transparent;
+  width: 0px;
+  height: 0px;
+}
+#my_content__button--prev {
+  left: 37px;
+  border-right: 32px solid rgba(255,255,0,0.5);
+}
+#my_content__button--next {
+  right: 37px;
+  border-left: 32px solid rgba(255,255,0,0.5);
+}
+.feedback {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+}
+#feedback--left {
+  left: 10px;
+}
+#feedback--right {
+  right: 10px;
+}

@@ -1,0 +1,21 @@
+{
+  "name": "ds-prototype",
+  "authors": [
+    "John Tucker <john@larkintuckerllc.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "thr0w-client": "^2.0.5",
+    "thr0w-pdf": "^0.0.2"
+  }
+}

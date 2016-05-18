@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Digital Signage Prototype</title>
+  <link rel="stylesheet" type="text/css" href="bower_components/thr0w-client/dist/thr0w-base.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/thr0w-pdf/dist/thr0w-pdf.css">
+  <link rel="stylesheet" type="text/css" href="app.css">
+</head>
+<body>
+  <div id="my_frame">
+    <div id="my_content">
+      <div id="my_content__button--prev" style="display: none;"  class="my_content__button"></div>
+      <div id="my_content__button--next"  style="display: none;" class="my_content__button"></div>
+      <div id="feedback--left" class="feedback"></div>
+      <div id="feedback--right" class="feedback"></div>
+    </div>
+  </div>
+  <script src="http://localhost:3001/socket.io/socket.io.js"></script>
+  <script src="lib/pdfjs/build/pdf.js"></script>
+  <script src="lib/pdfjs/build/pdf.worker.js"></script>
+  <script src="bower_components/thr0w-client/js/thr0w-base.js"></script>
+  <script src="bower_components/thr0w-pdf/dist/thr0w-pdf.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
