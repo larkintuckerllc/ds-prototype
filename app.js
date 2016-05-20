@@ -7,6 +7,7 @@
   var thr0w = window.thr0w;
   document.addEventListener('DOMContentLoaded', ready);
   function ready() {
+    var sync;
     var pdf;
     var channel;
     var blockedLeft = false;
@@ -40,12 +41,36 @@
           },
         ]
       );
+      sync = new thr0w.Sync(
+        grid,
+        'feedback',
+        message,
+        receive
+      );
       pdf = new thr0w.pdf.Pdf(
         grid,
         contentEl,
         'example.pdf'
       );
       pdf.addEventListener('ready', pdfReady);
+      function message() {
+        return {
+          blockedLeft: blockedLeft,
+          blockedRight: blockedRight
+        };
+      }
+      function receive(data) {
+        if (data.blockedLeft) {
+          feedbackLeftEl.style.display = 'block';
+        } else {
+          feedbackLeftEl.style.display = 'none';
+        }
+        if (data.blockedRight) {
+          feedbackRightEl.style.display = 'block';
+        } else {
+          feedbackRightEl.style.display = 'none';
+        }
+      }
       function pdfReady() {
         var numPages = pdf.getNumPages();
         var buttonPrevEl = document.getElementById('my_content__button--prev');
@@ -80,6 +105,9 @@
       }
     }
     function messageCallback(data) {
+      if (channel !== MASTER) {
+        return;
+      }
       var value = data.message.value;
       switch (data.message.pin) {
         case RIGHT:
@@ -87,9 +115,7 @@
             if (!blockedLeft && !blockedRight) {
               blockedRight = true;
               feedbackRightEl.style.display = 'block';
-              if (channel === MASTER) {
-                pdf.openNextPage();
-              }
+              pdf.openNextPage();
             }
           } else {
             blockedRight = false;
@@ -101,9 +127,7 @@
             if (!blockedLeft && !blockedRight) {
               blockedLeft = true;
               feedbackLeftEl.style.display = 'block';
-              if (channel === MASTER) {
-                pdf.openPrevPage();
-              }
+              pdf.openPrevPage();
             }
           } else {
             blockedLeft = false;
@@ -112,6 +136,8 @@
           break;
         default:
       }
+      sync.update();
+      sync.idle();
     }
   }
 })();
