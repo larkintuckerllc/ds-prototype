@@ -10,41 +10,41 @@ html, body {
 }
 #my_content {
   position: absolute;
-  width: 1200px;
+  width: 400px;
   height: 400px;
 }
 .my_content__button {
   position: absolute;
   z-index: 1;
   transform: translateY(-50%);
-  top: 50%;
-  border-top: 32px solid transparent;
-  border-bottom: 32px solid transparent;
+  top: 80%;
+  border-top: 100px solid transparent;
+  border-bottom: 100px solid transparent;
   width: 0px;
   height: 0px;
 }
 #my_content__button--prev {
-  left: 37px;
-  border-right: 32px solid rgba(255,255,0,0.5);
+  left: 150px;
+  border-right: 100px solid rgba(255,255,0,0.5);
 }
 #my_content__button--next {
-  right: 37px;
-  border-left: 32px solid rgba(255,255,0,0.5);
+  right: 150px;
+  border-left: 100px solid rgba(255,255,0,0.5);
 }
 .feedback {
   display: none;
   position: absolute;
   z-index: 2;
-  top: 50%;
+  top: 80%;
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   transform: translateY(-50%);
   background-color: rgba(0,0,0,0.5);
 }
 #feedback--left {
-  left: 10px;
+  left: 120px;
 }
 #feedback--right {
-  right: 10px;
+  right: 120px;
 }
