@@ -52,7 +52,6 @@
         contentEl,
         'example.pdf'
       );
-      pdf.addEventListener('ready', pdfReady);
       function message() {
         return {
           blockedLeft: blockedLeft,
@@ -60,17 +59,13 @@
         };
       }
       function receive(data) {
-        if (data.blockedLeft) {
-          feedbackLeftEl.style.display = 'block';
-        } else {
-          feedbackLeftEl.style.display = 'none';
-        }
-        if (data.blockedRight) {
-          feedbackRightEl.style.display = 'block';
-        } else {
-          feedbackRightEl.style.display = 'none';
-        }
+        blockedLeft = data.blockedLeft;
+        blockedRight = data.blockedRight;
+        updateFeedback();
+        window.console.log('RECEIVE');
+        window.console.log(data);
       }
+      pdf.addEventListener('ready', pdfReady);
       function pdfReady() {
         var numPages = pdf.getNumPages();
         var buttonPrevEl = document.getElementById('my_content__button--prev');
@@ -105,6 +100,9 @@
       }
     }
     function messageCallback(data) {
+      if (!data.message.pin) {
+        return;
+      }
       if (channel !== MASTER) {
         return;
       }
@@ -114,30 +112,42 @@
           if (value === DOWN) {
             if (!blockedLeft && !blockedRight) {
               blockedRight = true;
-              feedbackRightEl.style.display = 'block';
+              updateFeedback();
               pdf.openNextPage();
             }
           } else {
             blockedRight = false;
-            feedbackRightEl.style.display = 'none';
+            updateFeedback();
           }
           break;
         case LEFT:
           if (value === DOWN) {
             if (!blockedLeft && !blockedRight) {
               blockedLeft = true;
-              feedbackLeftEl.style.display = 'block';
+              updateFeedback();
               pdf.openPrevPage();
             }
           } else {
             blockedLeft = false;
-            feedbackLeftEl.style.display = 'none';
+            updateFeedback();
           }
           break;
         default:
       }
       sync.update();
       sync.idle();
+    }
+    function updateFeedback() {
+      if (blockedLeft) {
+        feedbackLeftEl.style.display = 'block';
+      } else {
+        feedbackLeftEl.style.display = 'none';
+      }
+      if (blockedRight) {
+        feedbackRightEl.style.display = 'block';
+      } else {
+        feedbackRightEl.style.display = 'none';
+      }
     }
   }
 })();
