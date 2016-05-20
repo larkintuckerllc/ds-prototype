@@ -17,7 +17,7 @@ html, body {
   position: absolute;
   z-index: 1;
   transform: translateY(-50%);
-  top: 80%;
+  top: 70%;
   border-top: 100px solid transparent;
   border-bottom: 100px solid transparent;
   width: 0px;
@@ -35,7 +35,7 @@ html, body {
   display: none;
   position: absolute;
   z-index: 2;
-  top: 80%;
+  top: 70%;
   border-radius: 50%;
   width: 200px;
   height: 200px;

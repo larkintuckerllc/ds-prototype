@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+  var MASTER = 0;
   var RIGHT = 12;
   var LEFT = 40;
   var DOWN = 1;
@@ -7,6 +8,7 @@
   document.addEventListener('DOMContentLoaded', ready);
   function ready() {
     var pdf;
+    var channel;
     var blockedLeft = false;
     var blockedRight = false;
     var frameEl = document.getElementById('my_frame');
@@ -18,6 +20,7 @@
     thr0w.addAdminTools(frameEl,
       connectCallback, messageCallback);
     function connectCallback() {
+      channel = thr0w.getChannel();
       var grid = new thr0w.FlexGrid(
         frameEl,
         contentEl,
@@ -84,7 +87,9 @@
             if (!blockedLeft && !blockedRight) {
               blockedRight = true;
               feedbackRightEl.style.display = 'block';
-              pdf.openNextPage();
+              if (channel === MASTER) {
+                pdf.openNextPage();
+              }
             }
           } else {
             blockedRight = false;
@@ -96,7 +101,9 @@
             if (!blockedLeft && !blockedRight) {
               blockedLeft = true;
               feedbackLeftEl.style.display = 'block';
-              pdf.openPrevPage();
+              if (channel === MASTER) {
+                pdf.openPrevPage();
+              }
             }
           } else {
             blockedLeft = false;
