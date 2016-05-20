@@ -1,7 +1,7 @@
 (function() {
   'use strict';
-  var RIGHT = 40;
-  var LEFT = 12;
+  var RIGHT = 12;
+  var LEFT = 40;
   var DOWN = 1;
   var thr0w = window.thr0w;
   document.addEventListener('DOMContentLoaded', ready);
@@ -13,15 +13,28 @@
     var contentEl = document.getElementById('my_content');
     var feedbackLeftEl = document.getElementById('feedback--left');
     var feedbackRightEl = document.getElementById('feedback--right');
-    thr0w.setBase('http://localhost');
+    // thr0w.setBase('http://localhost'); // DEV
+    thr0w.setBase('http://192.168.1.2'); // PROD
     thr0w.addAdminTools(frameEl,
       connectCallback, messageCallback);
     function connectCallback() {
-      var grid = new thr0w.Grid(
+      var grid = new thr0w.FlexGrid(
         frameEl,
         contentEl,
         [
-          [0, 1, 2]
+          [0],
+          [1]
+        ],
+        [
+          {
+            width: 1920,
+            height: 1080,
+            margin: 100
+          },
+          {
+            width: 1920,
+            height: 1080
+          },
         ]
       );
       pdf = new thr0w.pdf.Pdf(
