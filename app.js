@@ -50,7 +50,7 @@
       pdf = new thr0w.pdf.Pdf(
         grid,
         contentEl,
-        'sample.pdf'
+        'template.pdf'
       );
       function message() {
         return {
