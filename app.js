@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+  var TRANSFORM = true;
   var INTERVAL = 15 * 1000;
   var MOVEMENT = 100;
   var MASTER = 0;
@@ -62,7 +63,7 @@
       pdf = new thr0w.pdf.Pdf(
         grid,
         carouselEl,
-        'example.pdf'
+        'onward_tv.pdf'
       );
       function transformMessage() {
         return {
@@ -97,7 +98,7 @@
         if (numPages > 1) {
           buttonNextEl.style.display = 'block';
         }
-        if (channel === MASTER) {
+        if (TRANSFORM && channel === MASTER) {
           pulse();
           window.setInterval(pulse, INTERVAL);
         }
@@ -124,16 +125,16 @@
         }
       }
       function pulse() {
-        transform();
-        transformSync.update();
-        transformSync.idle();
         transformed = !transformed;
         if (!transformed) {
           transformRight = !transformRight;
         }
+        transform();
+        transformSync.update();
+        transformSync.idle();
       }
       function transform() {
-        if (transformed) {
+        if (!transformed) {
           carouselEl.style.transform = 'scale(1)';
         } else {
           if (transformRight) {
