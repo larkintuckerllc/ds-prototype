@@ -1,6 +1,7 @@
 (function() {
   'use strict';
   var INTERVAL = 15 * 1000;
+  var MOVEMENT = 100;
   var MASTER = 0;
   var RIGHT = 12;
   var LEFT = 40;
@@ -126,20 +127,25 @@
         transform();
         transformSync.update();
         transformSync.idle();
+        transformed = !transformed;
+        if (!transformed) {
+          transformRight = !transformRight;
+        }
       }
       function transform() {
         if (transformed) {
           carouselEl.style.transform = 'scale(1)';
         } else {
           if (transformRight) {
-            carouselEl.style.transform = 'scale(1.5) translate(200px, 200px)';
+            carouselEl.style.transform = 'scale(1.2) translate(' +
+              MOVEMENT + 'px, ' +
+              MOVEMENT + 'px)';
           } else {
-            carouselEl.style.transform =
-              'scale(1.2) translate(-200px, -200px)';
+            carouselEl.style.transform = 'scale(1.2) translate(-' +
+              MOVEMENT + 'px, -' +
+              MOVEMENT + 'px)';
           }
-          transformRight = !transformRight;
         }
-        transformed = !transformed;
       }
     }
     function messageCallback(data) {
