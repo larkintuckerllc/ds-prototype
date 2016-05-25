@@ -13,6 +13,12 @@ html, body {
   width: 400px;
   height: 400px;
 }
+#my_content__carousel {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 10s;
+}
 .my_content__button {
   position: absolute;
   z-index: 1;
@@ -31,7 +37,7 @@ html, body {
   right: 150px;
   border-left: 100px solid rgba(255,255,0,0.5);
 }
-.feedback {
+.my_content__feedback {
   display: none;
   position: absolute;
   z-index: 2;
@@ -42,9 +48,9 @@ html, body {
   transform: translateY(-50%);
   background-color: rgba(0,0,0,0.5);
 }
-#feedback--left {
+#my_content__feedback--left {
   left: 120px;
 }
-#feedback--right {
+#my_content__feedback--right {
   right: 120px;
 }

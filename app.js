@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+  var INTERVAL = 15 * 1000;
   var MASTER = 0;
   var RIGHT = 12;
   var LEFT = 40;
@@ -7,21 +8,24 @@
   var thr0w = window.thr0w;
   document.addEventListener('DOMContentLoaded', ready);
   function ready() {
-    var sync;
+    var blockedSync;
     var pdf;
     var channel;
+    var transformed = false;
+    var transformRight = true;
     var blockedLeft = false;
     var blockedRight = false;
     var frameEl = document.getElementById('my_frame');
     var contentEl = document.getElementById('my_content');
-    var feedbackLeftEl = document.getElementById('feedback--left');
-    var feedbackRightEl = document.getElementById('feedback--right');
+    var carouselEl = document.getElementById('my_content__carousel');
+    var feedbackLeftEl = document.getElementById('my_content__feedback--left');
+    var feedbackRightEl = document
+      .getElementById('my_content__feedback--right');
     // thr0w.setBase('http://localhost'); // DEV
     thr0w.setBase('http://192.168.1.2'); // PROD
     thr0w.addAdminTools(frameEl,
       connectCallback, messageCallback);
     function connectCallback() {
-      channel = thr0w.getChannel();
       var grid = new thr0w.FlexGrid(
         frameEl,
         contentEl,
@@ -41,29 +45,45 @@
           },
         ]
       );
-      sync = new thr0w.Sync(
+      var transformSync = new thr0w.Sync(
         grid,
-        'feedback',
-        message,
-        receive
+        'transform',
+        transformMessage,
+        transformReceive
+      );
+      channel = thr0w.getChannel();
+      blockedSync = new thr0w.Sync(
+        grid,
+        'blocked',
+        blockedMessage,
+        blockedReceive
       );
       pdf = new thr0w.pdf.Pdf(
         grid,
-        contentEl,
-        'template.pdf'
+        carouselEl,
+        'example.pdf'
       );
-      function message() {
+      function transformMessage() {
+        return {
+          transformed: transformed,
+          transformRight: transformRight
+        };
+      }
+      function transformReceive(data) {
+        transformed = data.transformed;
+        transformRight = data.transformRight;
+        transform();
+      }
+      function blockedMessage() {
         return {
           blockedLeft: blockedLeft,
           blockedRight: blockedRight
         };
       }
-      function receive(data) {
+      function blockedReceive(data) {
         blockedLeft = data.blockedLeft;
         blockedRight = data.blockedRight;
         updateFeedback();
-        window.console.log('RECEIVE');
-        window.console.log(data);
       }
       pdf.addEventListener('ready', pdfReady);
       function pdfReady() {
@@ -75,6 +95,10 @@
         buttonNextEl.addEventListener('click', handleButtonNextClick);
         if (numPages > 1) {
           buttonNextEl.style.display = 'block';
+        }
+        if (channel === MASTER) {
+          pulse();
+          window.setInterval(pulse, INTERVAL);
         }
         function handleButtonPrevClick() {
           pdf.openPrevPage();
@@ -97,6 +121,25 @@
             buttonNextEl.style.display = 'none';
           }
         }
+      }
+      function pulse() {
+        transform();
+        transformSync.update();
+        transformSync.idle();
+      }
+      function transform() {
+        if (transformed) {
+          carouselEl.style.transform = 'scale(1)';
+        } else {
+          if (transformRight) {
+            carouselEl.style.transform = 'scale(1.5) translate(200px, 200px)';
+          } else {
+            carouselEl.style.transform =
+              'scale(1.2) translate(-200px, -200px)';
+          }
+          transformRight = !transformRight;
+        }
+        transformed = !transformed;
       }
     }
     function messageCallback(data) {
@@ -134,8 +177,8 @@
           break;
         default:
       }
-      sync.update();
-      sync.idle();
+      blockedSync.update();
+      blockedSync.idle();
     }
     function updateFeedback() {
       if (blockedLeft) {
