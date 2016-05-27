@@ -16,6 +16,6 @@
   ],
   "dependencies": {
     "thr0w-client": "^2.0.5",
-    "thr0w-pdf": "^0.0.2"
+    "thr0w-pdf": "^0.0.3"
   }
 }

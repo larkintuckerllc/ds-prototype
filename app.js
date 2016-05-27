@@ -93,6 +93,7 @@
         var buttonPrevEl = document.getElementById('my_content__button--prev');
         var buttonNextEl = document.getElementById('my_content__button--next');
         pdf.addEventListener('page_open', updateButtons);
+        pdf.addEventListener('page_open', cancelTransition);
         buttonPrevEl.addEventListener('click', handleButtonPrevClick);
         buttonNextEl.addEventListener('click', handleButtonNextClick);
         if (numPages > 1) {
@@ -123,6 +124,10 @@
             buttonNextEl.style.display = 'none';
           }
         }
+        function cancelTransition() {
+          carouselEl.style.transform =
+            window.getComputedStyle(carouselEl).transform;
+        }
       }
       function pulse() {
         transformed = !transformed;
@@ -135,16 +140,18 @@
       }
       function transform() {
         if (!transformed) {
-          carouselEl.style.transform = 'scale(1)';
+          carouselEl.style.transform = 'scale(1) translateZ(0px)';
         } else {
           if (transformRight) {
             carouselEl.style.transform = 'scale(1.2) translate(' +
               MOVEMENT + 'px, ' +
-              MOVEMENT + 'px)';
+              MOVEMENT + 'px) ' +
+              'translateZ(0px)';
           } else {
             carouselEl.style.transform = 'scale(1.2) translate(-' +
               MOVEMENT + 'px, -' +
-              MOVEMENT + 'px)';
+              MOVEMENT + 'px) ' +
+              'translateZ(0px)';
           }
         }
       }
