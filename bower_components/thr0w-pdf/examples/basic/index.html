@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Thr0w PDF Basic</title>
+  <!-- REPLACE "../../../thr0w-client" WITH PATH TO ROOT OF THR0W CLIENT DOWNLOAD-->
+  <link rel="stylesheet" type="text/css" href="../../../thr0w-client/dist/thr0w-base.css">
+  <link rel="stylesheet" type="text/css" href="../../dist/thr0w-pdf.css">
+  <link rel="stylesheet" type="text/css" href="app.css">
+</head>
+<body>
+  <div id="my_frame">
+    <div id="my_content">
+      <div id="my_content__button--prev" style="display: none;"  class="my_content__button"></div>
+      <div id="my_content__button--next"  style="display: none;" class="my_content__button"></div>
+    </div>
+  </div>
+  <!-- CONFIGURED FOR LOCAL DEVELOPMENT; CHANGE HOSTNAME AS REQUIRED-->
+  <script src="http://localhost:3001/socket.io/socket.io.js"></script>
+  <!-- REPLACE "lib" WITH PATH TO ROOT OF PDF.JS DOWNLOAD -->
+  <script src="lib/build/pdf.js"></script>
+  <script src="lib/build/pdf.worker.js"></script>
+  <!-- REPLACE "../../../thr0w-client" WITH PATH TO ROOT OF THR0W CLIENT DOWNLOAD-->
+  <script src="../../../thr0w-client/js/thr0w-base.js"></script>
+  <script src="../../dist/thr0w-pdf.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
