@@ -31,7 +31,7 @@
       var grid = new thr0w.FlexGrid(
         frameEl,
         contentEl,
-        [ [1, 0] ]
+        [[1, 0]],
         [
           {
             width: 1080,
