@@ -31,20 +31,13 @@
       var grid = new thr0w.FlexGrid(
         frameEl,
         contentEl,
-        [
-          [0],
-          [1]
-        ],
+        [ [1, 0] ]
         [
           {
-            width: 1920,
-            height: 1080,
-            margin: 100
-          },
-          {
-            width: 1920,
-            height: 1080
-          },
+            width: 1080,
+            height: 1920,
+            spacing: 100
+          }
         ]
       );
       var transformSync = new thr0w.Sync(
