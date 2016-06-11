@@ -56,7 +56,7 @@
       pdf = new thr0w.pdf.Pdf(
         grid,
         carouselEl,
-        'onward_tv.pdf'
+        'example.pdf'
       );
       function transformMessage() {
         return {
